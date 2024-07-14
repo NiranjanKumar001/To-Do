@@ -5,6 +5,7 @@ function TodoList({ todos, updateTodo, deleteTodo, checkbox }) {
   return (
     <ul className="todo-list">
       {todos.map(todo => (
+        //properties pass
         <TodoItem
           key={todo.id}
           todo={todo}

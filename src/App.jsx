@@ -5,30 +5,31 @@ import './App.css';
 
 function App() {
   const [todos, setTodos] = useState([]);
-
+//loading todos from lcal stroage
   useEffect(() => {
     const storedTodos = JSON.parse(localStorage.getItem("todos"));
     if (storedTodos) {
       setTodos(storedTodos);
     }
   }, []);
-
+//save from local storage for changes
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
+  //new todo additon 
   const addTodo = (todo) => {
     setTodos([...todos, todo]);
   };
-
+// update option
   const updateTodo = (id, updatedTodo) => {
     setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
   };
-
+//delete option
   const deleteTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
-
+// completed & not completed option
   const checkbox = (id) => {
     setTodos(
       todos.map((todo) =>
