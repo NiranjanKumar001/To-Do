@@ -1,34 +1,80 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f6f1aa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
+  background-image: radial-gradient(rgb(193, 74, 74), rgb(91, 88, 88));
+  font-optical-sizing: auto;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-  input{
-    border: 1px solid black;
-  }
+.app {
+  font-family: "Playwrite CU", cursive;
+  /* font-optical-sizing: auto; */
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
 
-  h1{
-    font-size: 20px;
-  }
-  
-  button {
-    padding: 6px 12px;
-    font-size: 14px;
-    margin-left: 10px;
-    background-color: #f44336;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
- button:hover {
-    background-color: #ff0400;
-  }
-  
+h1 {
+  user-select: none;
+  margin: 0 0 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+form {
+  /* word-wrap: break-word; */
+  display: flex;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+button {
+  user-select: none;
+  padding: 10px;
+  border: none;
+  background-color: #ee3131;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #da1919;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ffdfdf;
+}
+
+.todo-item:last-child {
+  border-bottom: none;
+}
+
+.todo-item input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.todo-item button {
+  margin-left: 10px;
+}

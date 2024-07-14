@@ -1,75 +1,53 @@
-import React from "react";
-import { useState } from "react";
-import TodoComp from "./components/TodoComp";
-import TodoComp2 from "./components/TodoComp2";
-import UseEffect from "./components/UseEffect"
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import TodoList from "./components/TodoList";
+import TodoForm from "./components/TodoForm";
+import './App.css';
 
 function App() {
-  const [todo, setTodo] = useState("");
-  const [todoArr, setTodoArr] = useState([]);
+  const [todos, setTodos] = useState([]);
 
-  function pushData() {
-    let todoObj = {
-      id: Math.random() + Date.now() + todo,
-      todo: todo,
-      isCompleted: false,
-    };
-    setTodoArr([...todoArr, todoObj]);
-    console.log(todoArr);
-  }
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem("todos"));
+    if (storedTodos) {
+      setTodos(storedTodos);
+    }
+  }, []);
 
-  function handleDel(id) {
-    console.log(id);
-    let newTodoArr = todoArr.filter((el) => el.id !== id);
-    setTodoArr(newTodoArr);
-  }
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
-  function update(id) {
-    let updatedArr = todoArr.map((el) => {
-      return el.id === id ? { ...el, isCompleted: !el.isCompleted } : el;
-    });
-    console.log(updatedArr);
-    setTodoArr(updatedArr);
-  }
+  const addTodo = (todo) => {
+    setTodos([...todos, todo]);
+  };
 
+  const updateTodo = (id, updatedTodo) => {
+    setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
+  };
 
+  const deleteTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const checkbox = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
   return (
-    <div>
-      {/* <input placeholder = "enter"
-        onKeyDown={(e) => {
-          if (e.key === "c") handlerFuntion();
-        }}
-      /> */}
-      <input
-        type="text"
-        name=""
-        id=""
-        placeholder="add Todo"
-        onChange={(e) => {
-          setTodo(e.target.value);
-        }}
+    <div className="app">
+      <h1>To-Do List</h1>
+      <TodoForm addTodo={addTodo} />
+      <TodoList
+        todos={todos}
+        updateTodo={updateTodo}
+        deleteTodo={deleteTodo}
+        checkbox={checkbox}
       />
-      <button onClick={pushData}>click</button>
-      {todoArr.map((el) => (
-        <div>
-          {/* <h1>{el.todo}</h1>
-            <h1>{el.isCompleted ? "Completed" : "Not Completed"}</h1>
-            <button onClick={()=>{handleDel(el.id)}}>Delete</button>
-            <button onClick={()=>{update(el.id)}}>Update Task</button> */}
-          <TodoComp
-            id={el.id}
-            todo={el.todo}
-            status={el.isCompleted}
-            updFun={update}
-            delFun={handleDel}
-          />
-        </div>
-      ))}
-      {/* <UseEffect /> */}
     </div>
   );
 }
 
 export default App;
-
